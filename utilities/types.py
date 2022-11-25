@@ -26,16 +26,18 @@ _DEVICE = Union[torch.device, str, int]
 _MAP_LOCATION_TYPE = Optional[Union[_DEVICE, Callable[[_DEVICE], _DEVICE], Dict[_DEVICE, _DEVICE]]]
 _PARAMETERS = Iterator[torch.nn.Parameter]
 
+import oneflow.mock_torch as mock
+with mock.disable():
+    import torch
 
+    if torch.distributed.is_available():
+        from torch.distributed import ProcessGroup, ReduceOp
 
-if torch.distributed.is_available():
-    from torch.distributed import ProcessGroup, ReduceOp
-
-    RedOpType = ReduceOp.RedOpType if _TORCH_GREATER_EQUAL_1_13 else object
-else:
-    ProcessGroup = Any  # type: ignore[assignment,misc]
-    ReduceOp = object  # type: ignore[assignment,misc] # we are using isinstance check once
-    RedOpType = object
+        RedOpType = ReduceOp.RedOpType if _TORCH_GREATER_EQUAL_1_13 else object
+    else:
+        ProcessGroup = Any  # type: ignore[assignment,misc]
+        ReduceOp = object  # type: ignore[assignment,misc] # we are using isinstance check once
+        RedOpType = object
 
 
 
