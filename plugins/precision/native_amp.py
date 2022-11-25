@@ -32,7 +32,8 @@ from lightning_lite.utilities.types import Optimizable
 if _TORCH_GREATER_EQUAL_1_10:
     from torch import autocast as new_autocast
 else:
-    from torch.cuda.amp import autocast as old_autocast
+    # from torch.cuda.amp import autocast as old_autocast
+    from torch.amp import autocast as old_autocast
 
 
 class NativeMixedPrecision(Precision):
@@ -45,7 +46,7 @@ class NativeMixedPrecision(Precision):
     """
 
     def __init__(
-        self, precision: Literal[16, "bf16"], device: str, scaler: Optional[torch.cuda.amp.GradScaler] = None
+        self, precision: Literal[16, "bf16"], device: str, scaler: Optional[torch.amp.GradScaler] = None
     ) -> None:
         super().__init__()
         if precision == "bf16" and not _TORCH_GREATER_EQUAL_1_10:
