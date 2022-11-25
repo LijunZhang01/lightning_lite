@@ -17,7 +17,10 @@ from typing import Any, Dict, Generator, Optional, Union
 import torch
 from torch import Tensor
 from torch.nn import Module
-from torch.optim import LBFGS
+import oneflow.mock_torch as mock
+with mock.disable():
+    import torch
+    from torch.optim import LBFGS
 from typing_extensions import Literal
 
 from lightning_lite.accelerators.cuda import _patch_cuda_is_available
