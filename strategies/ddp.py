@@ -19,8 +19,8 @@ import torch
 import torch.distributed
 from torch import Tensor
 from torch.nn import Module
-from torch.nn.parallel.distributed import DistributedDataParallel
-
+# from torch.nn.parallel.distributed import DistributedDataParallel
+from torch.nn.parallel import DistributedDataParallel
 from lightning_lite.accelerators.accelerator import Accelerator
 from lightning_lite.plugins.collectives.torch_collective import default_pg_timeout
 from lightning_lite.plugins.environments.cluster_environment import ClusterEnvironment
