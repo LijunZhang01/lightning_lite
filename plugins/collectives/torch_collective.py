@@ -3,7 +3,10 @@ import os
 from typing import Any, List, Optional, Union
 
 import torch
-import torch.distributed as dist
+import oneflow.mock_torch as mock
+with mock.disable():
+    import torch
+    import torch.distributed as dist
 from typing_extensions import Self
 
 from lightning_lite.plugins.collectives.collective import Collective
@@ -11,7 +14,10 @@ from lightning_lite.utilities.imports import _TORCH_GREATER_EQUAL_1_10, _TORCH_G
 from lightning_lite.utilities.types import CollectibleGroup, RedOpType, ReduceOp
 
 if dist.is_available():
-    from torch.distributed.constants import default_pg_timeout
+    import oneflow.mock_torch as mock
+    with mock.disable():
+        import torch
+        from torch.distributed.constants import default_pg_timeout
 else:
     default_pg_timeout = datetime.timedelta(seconds=1800)
 
