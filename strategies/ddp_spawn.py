@@ -18,7 +18,7 @@ import torch
 import torch.distributed
 from torch import Tensor
 from torch.nn import Module
-from torch.nn.parallel.distributed import DistributedDataParallel
+from torch.nn.parallel import DistributedDataParallel
 from typing_extensions import Literal
 
 from lightning_lite.accelerators.accelerator import Accelerator

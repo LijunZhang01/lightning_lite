@@ -12,12 +12,16 @@ from lightning_lite.plugins.environments.cluster_environment import ClusterEnvir
 from lightning_lite.utilities.rank_zero import rank_zero_info
 from lightning_lite.utilities.types import ReduceOp
 
-if torch.distributed.is_available():
-    from torch.distributed import group
-else:
+import oneflow.mock_torch as mock
+with mock.disable():
+    import torch
 
-    class group:  # type: ignore
-        WORLD = None
+    if torch.distributed.is_available():
+        from torch.distributed import group
+    else:
+
+        class group:  # type: ignore
+            WORLD = None
 
 
 log = logging.getLogger(__name__)

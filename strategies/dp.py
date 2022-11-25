@@ -15,7 +15,11 @@ from typing import Any, Dict, List, Optional, Union
 
 import torch
 from torch import Tensor
-from torch.nn import DataParallel, Module
+
+import oneflow.mock_torch as mock
+with mock.disable():
+    import torch
+    from torch.nn import DataParallel, Module
 
 from lightning_lite.accelerators import Accelerator
 from lightning_lite.plugins.io.checkpoint_io import CheckpointIO
