@@ -17,7 +17,10 @@ import torch
 from lightning_utilities.core.apply_func import apply_to_collection
 from torch import nn as nn
 from torch import Tensor
-from torch.nn.modules.module import _IncompatibleKeys
+import oneflow.mock_torch as mock
+with mock.disable():
+    import torch
+    from torch.nn.modules.module import _IncompatibleKeys
 from torch.optim import Optimizer
 from torch.utils.data import DataLoader
 
